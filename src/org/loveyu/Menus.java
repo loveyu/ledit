@@ -1,4 +1,4 @@
-package Initialization;
+package org.loveyu;
 
 import java.awt.Event;
 import java.awt.event.ActionEvent;
@@ -44,7 +44,7 @@ public class Menus{
 					
 				break;
 				case "New":
-					fa.CloseFile();
+					fa.CloseFile(true);
 					f.setTitle("ÐÂÎÄ¼þ  ");
 					
 					System.out.println("new file action");
@@ -68,7 +68,7 @@ public class Menus{
 				
 				case "Close":
 					
-					fa.CloseFile();
+					fa.CloseFile(true);
 					System.out.println("close now file action");
 				break;				
 				case "Exit":

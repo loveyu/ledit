@@ -1,17 +1,13 @@
-package Initialization;
+package org.loveyu;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 
 import javax.swing.*;
 
-public class Init  extends SwingConsole{
-	public Init() {
+public class LEdit  extends SwingConsole{
+	public LEdit() {
 		run(new InitShow(),800,500);
-	}
-	public Boolean Status() {
-		return true;
-	}
-	
+	}	
 }
 
 class InitShow extends JFrame{

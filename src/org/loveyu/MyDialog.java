@@ -1,4 +1,4 @@
-package Initialization;
+package org.loveyu;
 
 import javax.swing.*;
 

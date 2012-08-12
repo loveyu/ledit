@@ -1,4 +1,4 @@
-package Initialization;
+package org.loveyu;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;

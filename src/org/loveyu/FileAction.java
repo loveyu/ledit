@@ -1,4 +1,4 @@
-package Initialization;
+package org.loveyu;
 
 import java.io.*;
 
@@ -17,7 +17,7 @@ public class FileAction{
 		f=parent;
 	}
 	public String getFile(){
-		CloseFile();
+		CloseFile(true);
 	    chooser.setFileFilter(new FileNameExtensionFilter(
 		        "Text type file", "txt","js","html","html","php","css","bat","java","xml"));
 	    if(Info.dir!=null)chooser.setCurrentDirectory(new File(Info.dir));
@@ -90,10 +90,11 @@ public class FileAction{
 			
 			try {
 				String s;
-				Info.init_content="";
+				Info.init_content = "";
 				while((s=in.readLine())!=null){
 					Info.init_content+=s+"\n";
 				}
+				Info.emptyDoc=Info.init_content.isEmpty();
 				in.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -106,12 +107,13 @@ public class FileAction{
 			return false;
 		}
 		//System.out.println(Info.init_content);
-		f.text.t.setText(Info.init_content);
+		//f.text.t.setText();
+		Info.doc.SetContent(Info.init_content);
 		f.setTitle(file.getName());
 		Info.file_title=file.getName();
 		return true;
 	}
-	public boolean CloseFile(){
+	public boolean CloseFile(boolean clearFile){
 		if(!Info.f.text.t.getText().equals(Info.init_content)){
 			System.out.println("file is no save");
 			MyDialog dlg=new MyDialog(f,"是否保存文件?");
@@ -123,7 +125,7 @@ public class FileAction{
 				System.out.println("chose NO\ngive up save file");
 			}
 		}
-		Info.ClearFileInfo();
+		if(clearFile)Info.ClearFileInfo();
 		return true;
 	}
 }
