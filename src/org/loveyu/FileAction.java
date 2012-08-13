@@ -3,6 +3,8 @@ package org.loveyu;
 import java.io.*;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
@@ -24,12 +26,12 @@ public class FileAction{
 	    returnVal = chooser.showOpenDialog(f);
 	    if(returnVal == JFileChooser.APPROVE_OPTION) {
 	       path=chooser.getSelectedFile().getPath();
-	       System.out.println("You chose to open this file: " + path);
+	       Message.out("You chose to open this file: " + path);
 	       Info.path=path;
 	       Info.dir=chooser.getSelectedFile().getParent();
 	       return path;
 	    }else{
-	    	System.out.println("file chose action had cancel");
+	    	Message.out("file chose action had cancel");
 	    }
 	    return null;
 	}
@@ -42,29 +44,28 @@ public class FileAction{
 					break;
 				Info.dir=chooser.getSelectedFile().getParent();
 				if( chooser.getSelectedFile().isFile()){
-					System.out.println("文件已存在  :"+ chooser.getSelectedFile().getPath());
-					MyDialog dlg=new MyDialog(f,"你确定要覆盖文件吗？");
-					dlg.setVisible(true);
-					if(dlg.getStatus()=="YES"){
-						System.out.println("chose Yes");
+					Message.out("文件已存在  :"+ chooser.getSelectedFile().getPath());
+					
+					if(Message.YES_NO("确定覆盖文件？","覆盖文件？","red")==Message.OK_OPTION){
+						Message.out("chose Yes");
 						break;
 					}else{
-						System.out.println("chose NO");
+						Message.out("chose NO");
 						continue;
 					}
 				}else break;
 			}while(JFileChooser.CANCEL_OPTION!=returnVal);
 			
 			if(returnVal==JFileChooser.APPROVE_OPTION){
-				System.out.println("save file to:"+chooser.getSelectedFile().getPath());
+				Message.out("save file to:"+chooser.getSelectedFile().getPath());
 				Info.path=chooser.getSelectedFile().getPath();
 				Info.file_title=chooser.getSelectedFile().getName();
 				return saveFile();
 			}
-			System.out.println("give up save file");
+			Message.out("give up save file");
 			return false;
 		}else{
-			System.out.println("begin write file :"+Info.path);
+			Message.out("begin write file :"+Info.path);
 			
 			PrintWriter out;
 			try {
@@ -79,12 +80,13 @@ public class FileAction{
 			
 			f.setTitle("已保存"+" - "+Info.file_title);
 			Info.init_content=Info.f.text.t.getText();
-			System.out.println("succuffuly save file");
+			Message.out("succuffuly save file");
 		}
 		return true;
 	}
 	public boolean ReadFile(){
 		file=new File(path);
+		Info.path=path;
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(file));
 			
@@ -106,23 +108,20 @@ public class FileAction{
 			e.printStackTrace();
 			return false;
 		}
-		//System.out.println(Info.init_content);
-		//f.text.t.setText();
-		Info.doc.SetContent(Info.init_content);
+		//Message.out(Info.init_content);
+		f.text.t.setText(Info.init_content);
 		f.setTitle(file.getName());
 		Info.file_title=file.getName();
 		return true;
 	}
 	public boolean CloseFile(boolean clearFile){
 		if(!Info.f.text.t.getText().equals(Info.init_content)){
-			System.out.println("file is no save");
-			MyDialog dlg=new MyDialog(f,"是否保存文件?");
-			dlg.setVisible(true);
-			if(dlg.getStatus()=="YES"){
-				System.out.println("chose Yes\nsave file");
+			Message.out("file is no save");
+			if(Message.YES_NO("是否保存文件？","保存文件？",null)==Message.OK_OPTION){
+				Message.out("chose Yes\nsave file");
 				saveFile();
 			}else{
-				System.out.println("chose NO\ngive up save file");
+				Message.out("chose NO\ngive up save file");
 			}
 		}
 		if(clearFile)Info.ClearFileInfo();

@@ -1,8 +1,6 @@
 package org.loveyu;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.*;
 public class SwingConsole {

@@ -4,6 +4,9 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 public class Info{
 	final static String app_title="LEdit";
 	static String init_content="";
@@ -14,6 +17,12 @@ public class Info{
 	static Doc doc;
 	static Text text;
 	static boolean emptyDoc=true;
+	
+	final static boolean closeOpenUIL = false;//关闭后打开网址
+	final static boolean closeNotice = true;//关闭提示
+	
+	static String[] DndFileList;
+	static int DndID = -1;
 	static WindowListener WindowListener = new WindowListener() {
 
 		@Override
@@ -43,7 +52,7 @@ public class Info{
 		@Override
 		public void windowClosing(WindowEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("window close action");
+			Message.out("window close action");
 			Info.CloseAction();
 		}
 		
@@ -51,9 +60,9 @@ public class Info{
 		public void windowClosed(WindowEvent e) {
 			// TODO Auto-generated method stub
 			try {
-				System.out.println("windows had closed !");
+				Message.out("windows had closed !");
 					Thread.sleep ( 1000 ) ; 
-				Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler http://www.loveyu.org/?fapp=LEdit");
+				if(closeOpenUIL)Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler http://www.loveyu.org/?fapp=LEdit");
 				System.exit(0);
 			} catch (IOException | InterruptedException e1) {
 				// TODO Auto-generated catch block
@@ -70,15 +79,17 @@ public class Info{
 	static boolean CloseAction(){
 		FileAction fa=new FileAction(Info.f);
 		fa.CloseFile(false);
+		/*
 		MyDialog dlg=new MyDialog(f,"你确定要关闭程序吗？");
-		dlg.setVisible(true);
-		if(dlg.getStatus()=="YES"){
+		dlg.setVisible(true);	
+		*/
+		if(closeNotice==false || Message.YES_NO("确定退出编辑器？","退出程序？","red")==Message.OK_OPTION){
 			f.dispose();
-			System.out.println("Exit");
+			Message.out("Exit action");
 			//System.exit(0);
 			return true;
 		}else{
-			System.out.println("give up exit!");
+			Message.out("give up exit!");
 			return false;
 		}
 	}

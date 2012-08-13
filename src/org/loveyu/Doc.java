@@ -15,13 +15,13 @@ public class Doc {
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("removeUpdate Action");
+			Message.out("removeUpdate Action");
 		}
 
 		@Override
 		public void insertUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("insertUpdate Action");
+			Message.out("insertUpdate Action");
 			if (Info.emptyDoc) {
 				Info.emptyDoc = false;
 			}
@@ -30,7 +30,7 @@ public class Doc {
 		@Override
 		public void changedUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("changedUpdate Action");
+			Message.out("changedUpdate Action");
 		}
 	};
 

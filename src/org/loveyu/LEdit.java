@@ -18,12 +18,12 @@ class InitShow extends JFrame{
 		else super.setTitle(Info.app_title);
 	}
 	public InitShow() {
-		//菜单
 		Info.f=this;
-		setJMenuBar(menus.getMenus());
-		text.t.setDropTarget( new DropTarget(this, DnDConstants.ACTION_REFERENCE, new DndTargetListener(), true) );
-		add(text.showText());
-		System.out.println("app had initlaztion");
+		
+		setJMenuBar(menus.getMenus());//菜单
+		add(text.showText());//文本框
+		
+		Message.out("app had initlaztion");
 	}
 
 }
