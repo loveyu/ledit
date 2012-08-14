@@ -19,7 +19,7 @@ public class Info{
 	static boolean emptyDoc=true;
 	
 	final static boolean closeOpenUIL = false;//关闭后打开网址
-	final static boolean closeNotice = true;//关闭提示
+	final static boolean closeNotice = false;//关闭提示
 	
 	static String[] DndFileList;
 	static int DndID = -1;

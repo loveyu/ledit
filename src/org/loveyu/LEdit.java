@@ -1,28 +1,32 @@
 package org.loveyu;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTarget;
 
 import javax.swing.*;
 
-public class LEdit  extends SwingConsole{
+public class LEdit extends SwingConsole {
 	public LEdit() {
-		run(new InitShow(),800,500);
-	}	
+		run(new InitShow(), 800, 500);
+	}
 }
 
-class InitShow extends JFrame{
-	Menus menus=new Menus(this);
-	Text text=new Text(this);
-	public void setTitle(String title){
-		if(title!=null)super.setTitle(title+" - "+Info.app_title);
-		else super.setTitle(Info.app_title);
+class InitShow extends JFrame {
+	Menus menus;
+	Text text;
+
+	public void setTitle(String title) {
+		if (title != null)
+			super.setTitle(title + " - " + Info.app_title);
+		else
+			super.setTitle(Info.app_title);
 	}
+
 	public InitShow() {
-		Info.f=this;
-		
-		setJMenuBar(menus.getMenus());//菜单
-		add(text.showText());//文本框
-		
+		Info.f = this;
+		menus = new Menus();
+		text = new Text();
+
+		setJMenuBar(menus.getMenus());// 菜单
+		add(text.showText());// 文本框
+
 		Message.out("app had initlaztion");
 	}
 

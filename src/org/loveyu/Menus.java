@@ -8,9 +8,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 public class Menus{
 	private JMenu[] menus={
-			new JMenu("文件"),
-			new JMenu("编辑"),
-			new JMenu("关于")
+			new JMenu("文件(F)"),
+			new JMenu("编辑(E)"),
+			new JMenu("关于(A)")
 	};
 	private JMenuItem[][] items={
 			{
@@ -21,17 +21,16 @@ public class Menus{
 				new JMenuItem("关闭",KeyEvent.VK_C),
 				new JMenuItem("退出",KeyEvent.VK_X),
 			},
-			
 			{
 				new JMenuItem("清空"),
-				new JMenuItem("查找"),
+				new JMenuItem("查找",KeyEvent.VK_F),
+				new JMenuItem("替换",KeyEvent.VK_R),
 			},
 			{
 				new JMenuItem("作者"),
 				new JMenuItem("程序")
 			}
 	};
-	InitShow f;
 	
 	private ActionListener menus_Listener = new ActionListener() {
 		@Override
@@ -56,7 +55,7 @@ public class Menus{
 				break;
 				case "New":
 					fa.CloseFile(true);
-					f.setTitle("新文件  ");
+					Info.f.setTitle("新文件  ");
 					
 					Message.out("new file action");
 				break;
@@ -91,13 +90,17 @@ public class Menus{
 				/* 编辑操作开始 */
 				case "Clear":
 					Message.out("clear Text conent");
-					f.text.t.setText("");
+					Info.f.text.t.setText("");
 				break;
 				
 				case "Find":
 					Message.out("Find text");
 					new Find();
 				break;
+				case "Replace":
+					Message.out("Replace text");
+					new Replace();
+				break;				
 				/* 编辑操作结束 */
 				
 				/* 关于操作开始 */
@@ -120,8 +123,7 @@ public class Menus{
 			}
 		}
 	};
-	public Menus(InitShow f) {
-		this.f=f;
+	public Menus() {
 		// TODO Auto-generated constructor stub
 		
 		//number 0
@@ -156,6 +158,10 @@ public class Menus{
 		items[1][1].setName("Find");
 		items[1][1].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,Event.CTRL_MASK));
 		
+		menus[1].add(items[1][2]);
+		items[1][2].setName("Replace");
+		items[1][2].setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,Event.CTRL_MASK));
+		
 		// number 2
 		menus[2].add(items[2][0]);
 		items[2][0].setName("Author");
@@ -165,8 +171,13 @@ public class Menus{
 		
 		// number all
 		menus[0].setName("File");
+		menus[0].setMnemonic('f');
+		
 		menus[1].setName("Edit");
+		menus[1].setMnemonic('E');
+		
 		menus[2].setName("About");
+		menus[2].setMnemonic('A');
 	}
 	public JMenuBar getMenus() {
 		for(JMenuItem[] JI:items)for(JMenuItem JI2:JI)JI2.addActionListener(menus_Listener);

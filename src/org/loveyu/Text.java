@@ -9,9 +9,7 @@ import javax.swing.*;
 public class Text extends JFrame{
 	
 	public JTextPane t;
-	InitShow f;
-	public Text(InitShow f) {
-		this.f=f;
+	public Text() {
 		Info.doc = new Doc();
 		t = new JTextPane(Info.doc.Init());
 		t.setDropTarget( new DropTarget(this, DnDConstants.ACTION_REFERENCE, new DndTargetListener(), true) );
