@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class LEdit extends SwingConsole {
 	public LEdit() {
-		run(new InitShow(), 800, 500);
+		run(new InitShow(), (int)(600*1.62), 600);
 	}
 }
 

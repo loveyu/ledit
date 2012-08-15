@@ -8,7 +8,7 @@ import javax.swing.text.*;
 
 public class Doc {
 	private StyleContext context = new StyleContext();// 实例化一个样式池
-	private StyledDocument styledDoc;
+	public StyledDocument styledDoc;
 	private Style style;
 	private DocumentListener listener = new DocumentListener() {
 
@@ -22,9 +22,6 @@ public class Doc {
 		public void insertUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
 			Message.out("insertUpdate Action");
-			if (Info.emptyDoc) {
-				Info.emptyDoc = false;
-			}
 		}
 
 		@Override
@@ -43,7 +40,7 @@ public class Doc {
 	}
 
 	public void SetDefaultStyle() {
-		createStyle(18, "", Color.darkGray, false, false, false);
+		createStyle(14, "", Color.darkGray, false, false, false);
 	}
 
 	public void SetContent(String v) {
@@ -58,7 +55,30 @@ public class Doc {
 		StyleConstants.setItalic(style, italic);// 斜体
 		StyleConstants.setUnderline(style, underline);// 下划线
 	}
-
+	public boolean insert(int offset, String str){
+		Message.out("doc insert action -> offset: " + offset + " str: " + str);
+		if(offset > styledDoc.getLength() || offset < 0) return false;
+		try {
+			styledDoc.insertString(offset, str, style);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	public boolean delete(int offset, int length){
+		Message.out("doc delete action");
+		if(offset < 0 || offset + length > styledDoc.getLength())return false;
+		try {
+			styledDoc.remove(offset, length);
+		} catch (BadLocationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	public void insertDoc(StyledDocument styledDoc, String content) {
 		try {
 			styledDoc.insertString(styledDoc.getLength(), content, style);
