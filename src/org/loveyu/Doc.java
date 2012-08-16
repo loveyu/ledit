@@ -35,7 +35,7 @@ public class Doc {
 		styledDoc = new DefaultStyledDocument(context);// 创建有样式的文档实例
 		style = context.getStyle(StyleContext.DEFAULT_STYLE);// 从样式池获取默认的样式
 		styledDoc.addDocumentListener(listener);
-		
+
 		return styledDoc;
 	}
 
@@ -47,7 +47,8 @@ public class Doc {
 		insertDoc(styledDoc, v);
 	}
 
-	public void createStyle(int size, String fontName, Color color, boolean bold, boolean italic, boolean underline) {
+	public void createStyle(int size, String fontName, Color color,
+			boolean bold, boolean italic, boolean underline) {
 		StyleConstants.setFontSize(style, size);// 设置字体大小
 		StyleConstants.setFontFamily(style, fontName);// 设置字体
 		StyleConstants.setForeground(style, color);// 设置颜色
@@ -55,9 +56,11 @@ public class Doc {
 		StyleConstants.setItalic(style, italic);// 斜体
 		StyleConstants.setUnderline(style, underline);// 下划线
 	}
-	public boolean insert(int offset, String str){
+
+	public boolean insert(int offset, String str) {
 		Message.out("doc insert action -> offset: " + offset + " str: " + str);
-		if(offset > styledDoc.getLength() || offset < 0) return false;
+		if (offset > styledDoc.getLength() || offset < 0)
+			return false;
 		try {
 			styledDoc.insertString(offset, str, style);
 		} catch (BadLocationException e) {
@@ -67,9 +70,11 @@ public class Doc {
 		}
 		return true;
 	}
-	public boolean delete(int offset, int length){
+
+	public boolean delete(int offset, int length) {
 		Message.out("doc delete action");
-		if(offset < 0 || offset + length > styledDoc.getLength())return false;
+		if (offset < 0 || offset + length > styledDoc.getLength())
+			return false;
 		try {
 			styledDoc.remove(offset, length);
 		} catch (BadLocationException e) {
@@ -79,6 +84,7 @@ public class Doc {
 		}
 		return true;
 	}
+
 	public void insertDoc(StyledDocument styledDoc, String content) {
 		try {
 			styledDoc.insertString(styledDoc.getLength(), content, style);

@@ -144,33 +144,37 @@ public class Replace {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				String NewReplace = jt2.getText();
-				if(NewReplace != replace){
+				if (NewReplace != replace) {
 					lastReplace = -2;
 					replace = NewReplace;
 				}
-				if(lastReplace == local)return;
-				
-				if(!Info.doc.delete(local, need.length()) || !Info.doc.insert(local, replace)){
+				if (lastReplace == local)
+					return;
+
+				if (!Info.doc.delete(local, need.length())
+						|| !Info.doc.insert(local, replace)) {
 					Message.Notice("×Ö·û´®Ìæ»»Ê§°Ü", "Ìæ»»ÌáÊ¾");
 					return;
 				}
 				ReplaceSelect();
-				if(is_down_replace)
+				if (is_down_replace)
 					local = local + replace.length() - 1;
-				
+
 				lastReplace = local;
 			}
 		};
 		Ljb23 = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				Message.out("Replace All");
 				replace = jt2.getText();
-				if(is_down_replace)ReplaceDown(local);
-				else ReplaceUP(local);
-				ReplaceSelect();				
+				if (is_down_replace)
+					ReplaceDown(local);
+				else
+					ReplaceUP(local);
+				ReplaceSelect();
 			}
 		};
 		Ljb31 = new ActionListener() {
@@ -257,24 +261,28 @@ public class Replace {
 		if (local >= 0)
 			Info.text.t.select(local, local + need.length());
 	}
-	private void ReplaceSelect(){
+
+	private void ReplaceSelect() {
 		if (local >= 0)
 			Info.text.t.select(local, local + replace.length());
 	}
+
 	private void countReplaceAction(String content) {
-			int id = 0;
-			int num = 0;
-			while ((id = content.indexOf(need, id)) != -1) {
-				num++;
-				++id;
-			}
-			lb21.set(num);
+		int id = 0;
+		int num = 0;
+		while ((id = content.indexOf(need, id)) != -1) {
+			num++;
+			++id;
+		}
+		lb21.set(num);
 	}
-	private boolean ReplaceUP(int offset){
+
+	private boolean ReplaceUP(int offset) {
 		String content = "";
 		int allLength = Info.doc.styledDoc.getLength();
 		int lastLength = allLength - offset;
-		if(offset>allLength || offset < 0 )return false;
+		if (offset > allLength || offset < 0)
+			return false;
 		try {
 			content = Info.doc.styledDoc.getText(0, offset + need.length());
 		} catch (BadLocationException e) {
@@ -284,14 +292,18 @@ public class Replace {
 		}
 		Info.doc.delete(0, content.length());
 		Info.doc.insert(0, content.replaceAll(need, replace));
-		local = Info.doc.styledDoc.getLength() - lastLength - replace.length() + 1;
+		local = Info.doc.styledDoc.getLength() - lastLength - replace.length()
+				+ 1;
 		return true;
 	}
-	private boolean ReplaceDown(int offset){
+
+	private boolean ReplaceDown(int offset) {
 		String content = "";
-		if(offset>Info.doc.styledDoc.getLength() || offset < 0 )return false;
+		if (offset > Info.doc.styledDoc.getLength() || offset < 0)
+			return false;
 		try {
-			content = Info.doc.styledDoc.getText(offset, Info.doc.styledDoc.getLength() - offset);
+			content = Info.doc.styledDoc.getText(offset,
+					Info.doc.styledDoc.getLength() - offset);
 		} catch (BadLocationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

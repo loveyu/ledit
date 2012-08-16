@@ -1,16 +1,21 @@
 package org.loveyu;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class LEdit extends SwingConsole {
 	public LEdit() {
-		run(new InitShow(), (int)(600*1.62), 600);
+		run(new InitShow(), (int) (600 * 1.62), 600);
 	}
 }
 
 class InitShow extends JFrame {
 	Menus menus;
 	Text text;
+	JPanel jp0, jp1;
+	JLabel jl;
 
 	public void setTitle(String title) {
 		if (title != null)
@@ -23,10 +28,12 @@ class InitShow extends JFrame {
 		Info.f = this;
 		menus = new Menus();
 		text = new Text();
-
+		jp0 = new JPanel(new BorderLayout());
+		jp1 = new JPanel(new BorderLayout());
 		setJMenuBar(menus.getMenus());// 菜单
-		add(text.showText());// 文本框
-
+		jp1.add(text.showText(), BorderLayout.CENTER);		
+		jp0.add(jp1, BorderLayout.CENTER);		
+		add(jp0);// 文本框
 		Message.out("app had initlaztion");
 	}
 

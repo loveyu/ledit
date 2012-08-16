@@ -22,7 +22,7 @@ public class DndTargetListener implements DropTargetListener{
             try {
                 Transferable tr = dtde.getTransferable();
                 Object obj = tr.getTransferData(DataFlavor.javaFileListFlavor);
-                List<File> files = (List<File>)obj;
+				List<File> files = (List<File>)obj;
                 Info.DndFileList = new String[files.size()];
                 for(int i = 0; i < files.size(); i++){
                     Message.out("open file : " + files.get(i).getAbsolutePath());

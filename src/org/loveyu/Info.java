@@ -4,9 +4,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 public class Info{
 	final static String app_title="LEdit";
 	static String init_content="";

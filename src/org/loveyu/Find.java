@@ -30,10 +30,10 @@ public class Find {
 	JTextField jt42;
 	JButton jb51, jb52, jb53, jb54;
 	Button b43;
-	
+
 	ActionListener Lb43, Ljb51, Ljb52, Ljb53, Ljb54;
 	KeyListener Ljt42;
-	
+
 	class CountJLabel extends JLabel {
 
 		public CountJLabel(int num) {
@@ -43,8 +43,7 @@ public class Find {
 		}
 
 		public void set(int num) {
-			setText("<html><font size=4 color=red>"
-					+ num + "</font>");
+			setText("<html><font size=4 color=red>" + num + "</font>");
 		}
 	}
 
@@ -82,7 +81,8 @@ public class Find {
 
 	private void getList() {
 		try {
-			Text = Info.doc.styledDoc.getText(0, Info.doc.styledDoc.getLength());
+			Text = Info.doc.styledDoc
+					.getText(0, Info.doc.styledDoc.getLength());
 		} catch (BadLocationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -98,42 +98,43 @@ public class Find {
 	private void show() {
 		setSelect();// 选中当前文字
 		subDialog = new MyDialog(Info.f, "查询结果", true, 350, 200);
-		GridLayout GL1 = new GridLayout(1,4);
+		GridLayout GL1 = new GridLayout(1, 4);
 		GL1.setHgap(5);
-		GridLayout GL2 = new GridLayout(5,1);
+		GridLayout GL2 = new GridLayout(5, 1);
 		FlowLayout FL = new FlowLayout();
 		FL.setAlignment(FlowLayout.LEFT);
-		
+
 		p1 = new JPanel(new BorderLayout());
-		p1.setBorder(BorderFactory.createEmptyBorder(10,10,0,10));
+		p1.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
 		p2 = new JPanel(new BorderLayout());
-		p2.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
+		p2.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		p3 = new JPanel(new BorderLayout());
-		p3.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
+		p3.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		p4 = new JPanel(FL);
-		p4.setBorder(BorderFactory.createEmptyBorder(0,10,0,10));
+		p4.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		p5 = new JPanel(GL1);
-		p5.setBorder(BorderFactory.createEmptyBorder(0,5,10,5));
-		
-		p1.add(new JLabel("<html><font size=4>关键字：</font>"),BorderLayout.WEST);
-		p1.add(new JLabel("<html><font size=5 color=red>" + SearchWord + "</font>"),BorderLayout.CENTER);
-		
-		p2.add(new JLabel("<html><font size=3>查找统计：</font>"),BorderLayout.WEST);
-		p2.add(new JLabel("<html><font size=4 color=blue>"
-						+ Count + "</font>"),BorderLayout.CENTER);
-		p3.add(new JLabel("<html><font size=3>当前位置："),BorderLayout.WEST);		
+		p5.setBorder(BorderFactory.createEmptyBorder(0, 5, 10, 5));
+
+		p1.add(new JLabel("<html><font size=4>关键字：</font>"), BorderLayout.WEST);
+		p1.add(new JLabel("<html><font size=5 color=red>" + SearchWord
+				+ "</font>"), BorderLayout.CENTER);
+
+		p2.add(new JLabel("<html><font size=3>查找统计：</font>"), BorderLayout.WEST);
+		p2.add(new JLabel("<html><font size=4 color=blue>" + Count + "</font>"),
+				BorderLayout.CENTER);
+		p3.add(new JLabel("<html><font size=3>当前位置："), BorderLayout.WEST);
 		jl32 = new CountJLabel(NowNumber);
-		p3.add(jl32,BorderLayout.CENTER);
-		
-		p4.add(new JLabel("<html><font size=4>跳转到：</font>"),FlowLayout.LEFT);
+		p3.add(jl32, BorderLayout.CENTER);
+
+		p4.add(new JLabel("<html><font size=4>跳转到：</font>"), FlowLayout.LEFT);
 		jt42 = new JTextField(String.valueOf(((NowNumber >= Count) ? Count
 				: NowNumber + 1)), 10);
 		jt42.addKeyListener(Ljt42);
-		p4.add(jt42,FlowLayout.CENTER);
+		p4.add(jt42, FlowLayout.CENTER);
 		b43 = new Button("确定");
 		b43.addActionListener(Lb43);
-		p4.add(b43,FlowLayout.RIGHT);
-		
+		p4.add(b43, FlowLayout.RIGHT);
+
 		jb51 = new JButton("下一处");
 		jb51.addActionListener(Ljb51);
 		jb52 = new JButton("上一处");
@@ -146,23 +147,23 @@ public class Find {
 		p5.add(jb52);
 		p5.add(jb53);
 		p5.add(jb54);
-		
+
 		subDialog.setLayout(GL2);
 		subDialog.add(p1);
 		subDialog.add(p2);
 		subDialog.add(p3);
 		subDialog.add(p4);
-		subDialog.add(p5);	
+		subDialog.add(p5);
 		subDialog.addKeyListener(Ljt42);
-		
+
 		subDialog.setVisible(true);
 	}
 
 	private void setSelect() {
-		if (NowNumber <= 0){
+		if (NowNumber <= 0) {
 			NowNumber = 1;
 			Message.Notice("搜索达到顶端", "搜索提示");
-		}else if (NowNumber > Count){
+		} else if (NowNumber > Count) {
 			NowNumber = Count;
 			Message.Notice("搜索达到最底端", "搜索提示");
 		}
@@ -174,27 +175,27 @@ public class Find {
 
 	private void InitListener() {
 		Ljt42 = new KeyListener() {
-			//监听回车键
+			// 监听回车键
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if(e.getKeyChar()==KeyEvent.VK_ENTER){
+				if (e.getKeyChar() == KeyEvent.VK_ENTER) {
 					NowNumber = TextChange();
 					setSelect();
-					DialogChange();					
+					DialogChange();
 				}
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		};
 		Lb43 = new ActionListener() {
@@ -274,7 +275,8 @@ public class Find {
 		else if (NowNumber > Count)
 			NowNumber = Count;
 
-		jt42.setText(String.valueOf((NowNumber >= Count) ? Count : NowNumber + 1));
+		jt42.setText(String.valueOf((NowNumber >= Count) ? Count
+				: NowNumber + 1));
 		jl32.set(NowNumber);
 	}
 }
